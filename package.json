@@ -1,0 +1,11 @@
+{
+    "name": "one-boat-away",
+    "version": "0.1.0",
+    "description": "should you run for the ferry app",
+    "dependencies": {
+        "axios": "^0.18.0",
+        "express": "^4.15.2",
+        "open": "0.0.5",
+        "socket.io": "^2.1.1"
+    }
+}

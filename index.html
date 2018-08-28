@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OneBoatAway</title>
+    <style>
+        header {
+            margin-bottom: 40px;
+        }
+        .boat {
+            padding: 0 0 10px 40px;
+        }
+        .boat-name {
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 40px;
+        }
+    </style>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <header>
+        <div id="httpGet"></div>
+        <div id="httpRes"></div>
+    </header>
+    <div id="boat0" class="boat"></div>
+    <div id="boat1" class="boat"></div>
+    <footer>
+        <div id="lastCheck"></div>
+    </footer>
+
+    <script>
+        $(function () {
+            var socket = io();
+            socket.on('data', function (data) {
+                document.getElementById('httpGet').innerHTML = data.get;
+                document.getElementById('httpRes').innerHTML = data.res;
+                document.getElementById('lastCheck').innerHTML = data.datetime;
+                
+                if (data.boat[0].headtxt == "Stopped") {
+                    document.getElementById('boat0').innerHTML = `
+                        <div class="boat-name">${data.boat[0].name}</div>
+                        <div class="boat-status">Status: ${data.boat[0].headtxt} at ${data.boat[0].lastdock}</div>
+                        <div class="boat-depart">Departs: ${data.boat[0].lastdock} at ${data.boat[0].nextdep} ${data.boat[0].nextdepAMPM}</div>
+                    `;
+                } else {
+                    document.getElementById('boat0').innerHTML = `
+                        <div class="boat-name">${data.boat[0].name}</div>
+                        <div class="boat-left">Left: ${data.boat[0].lastdock} at ${data.boat[0].leftdock} ${data.boat[0].leftdockAMPM}</div>
+                        <div class="boat-status">Status: Enroute to ${ data.boat[0].aterm}</div>
+                        <div class="boat-eta">ETA: ${data.boat[0].eta} ${data.boat[0].etaAMPM}</div>
+                    `;
+                }
+
+                if (data.boat[1].headtxt == "Stopped") {
+                    document.getElementById('boat1').innerHTML = `
+                        <div class="boat-name">${data.boat[1].name}</div>
+                        <div class="boat-status">Status: ${data.boat[1].headtxt} at ${data.boat[1].lastdock}</div>
+                        <div class="boat-depart">Departs: ${data.boat[1].lastdock} at ${data.boat[1].nextdep} ${data.boat[1].nextdepAMPM}</div>
+                    `;
+                } else {
+                    document.getElementById('boat1').innerHTML = `
+                        <div class="boat-name">${data.boat[1].name}</div>
+                        <div class="boat-left">Left: ${data.boat[1].lastdock} at ${data.boat[1].leftdock} ${data.boat[1].leftdockAMPM}</div>
+                        <div class="boat-status">Status: Enroute to ${data.boat[1].aterm}</div>
+                        <div class="boat-ets">ETA: ${data.boat[1].eta} ${data.boat[1].etaAMPM}</div>
+                    `;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
