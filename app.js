@@ -1,10 +1,11 @@
 var 
   axios = require('./js/axios'),
-  boat = require('./js/boat'),
   app = require('express')(),
+  serveStatic = require('serve-static'),
   http = require('http').Server(app),
   io = require('socket.io')(http),
   open = require('open'),
+  boat = require('./js/boat'),
   payload = {
     get: '',
     res: '',
@@ -55,9 +56,7 @@ function send(data) {
   io.emit('data', data);
 }
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+app.use(serveStatic('public'));
 
 http.listen(3000, function () {
   console.log('listening on port 3000');

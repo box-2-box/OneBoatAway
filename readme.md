@@ -1,4 +1,7 @@
 Release Notes
+0.1.1
+- Express serves external css and js files
+
 0.1.0
 - Added web page for displaying boat information
 - Terminal no longer displays boat data
@@ -16,7 +19,6 @@ Release Notes
 
 
 Feature enhancements
-- Serve css and js files
 - Calculate and display estimated time of departure
 - Display event log for client
 - Update boat information styling

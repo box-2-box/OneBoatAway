@@ -1,0 +1,16 @@
+header {
+    margin-bottom: 40px;
+    background-color: #eee;
+    padding: 20px;
+}
+.boat {
+    padding: 0 0 10px 40px;
+}
+.boat-name {
+    font-weight: bold;
+}
+footer {
+    background-color: #eee;
+    margin-top: 40px;
+    padding: 20px;
+}
